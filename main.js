@@ -5,56 +5,53 @@ function todoApp() {
     form.addEventListener("submit", addToDo)
 
     todoButton.addEventListener("click", addToDo)
-    todoList.addEventListener("click", deleteCheck)
 }
 function addToDo(event) {
     console.log(event);
     event.preventDefault()
     const todoInput = document.querySelector('.todo-input')
     console.log("yeet")
-    const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo');
-    const newTodo = document.createElement('li');
-    newTodo.innerText = todoInput.value;
-    newTodo.classList.add('todo_item');
-    todoDiv.appendChild(newTodo);
     if (todoInput.value === "") {
         return;
     }
-    const todo = CreateToDo(todoDiv)
+    const todo = CreateToDo(todoInput.value)
     const todoList = document.querySelector('.todo-list')
 
     todoList.appendChild(todo);
 
+    todoInput.value = ""
+
 }
 
-function CreateToDo(todoDiv) {
+function CreateToDo(todoText) {
+    const newTodo = document.createElement('li');
+    newTodo.innerText = todoText;
+    newTodo.classList.add('todo_item');
     const todoInput = document.querySelector('.todo-input')
     console.log("hai")
     const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add('complete_btn')
-    todoDiv.appendChild(completedButton);
+    completedButton.innerHTML = '<i class="fa fa-check"></i>';
+    completedButton.classList.add('btn')
+    completedButton.classList.add('btn-primary')
+    newTodo.appendChild(completedButton);
 
     const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-    deleteButton.classList.add('delete_btn')
-    todoDiv.appendChild(deleteButton);
+    deleteButton.addEventListener("click", deleteCheck)
+    deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+    deleteButton.classList.add('btn')
+    deleteButton.classList.add('btn-secondary')
+    newTodo.appendChild(deleteButton);
 
-    todoInput.value = ""
-
-    return todoDiv
+    return newTodo
 }
 
 function deleteCheck(e) {
     const item = e.target;
-    if (item.classList[0] === "delete_btn") {
-        const todo = item.parentElement;
-        todo.classList.add("fall")
-        todo.addEventListener('transitionend', function () {
-            todo.remove()
-        })
-    }
+    const todo = item.parentElement.parentElement;
+    todo.remove()
+}
+
+function completeCheck(e) {
     //COMPLETE ITEM
     if (item.classList[0] === "complete_btn") {
         const todo = item.parentElement;
