@@ -18,6 +18,7 @@ function addToDo(event) {
     const todoList = document.querySelector('.todo-list')
 
     todoList.appendChild(todo);
+    todoItems.push(todo)
 
     todoInput.value = ""
 
@@ -59,5 +60,5 @@ function completeCheck(e) {
     }
 }
 
-
+let todoItems = [] 
 window.addEventListener("load", todoApp)
