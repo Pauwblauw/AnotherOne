@@ -28,9 +28,9 @@ function CreateToDo(todoText) {
     const newTodo = document.createElement('li');
     newTodo.innerText = todoText;
     newTodo.classList.add('todo_item');
-    const todoInput = document.querySelector('.todo-input')
     console.log("hai")
     const completedButton = document.createElement('button');
+    completedButton.addEventListener("click", completeCheck)
     completedButton.innerHTML = '<i class="fa fa-check"></i>';
     completedButton.classList.add('btn')
     completedButton.classList.add('btn-primary')
@@ -53,12 +53,21 @@ function deleteCheck(e) {
 }
 
 function completeCheck(e) {
+    const item = e.target;
     //COMPLETE ITEM
     if (item.classList[0] === "complete_btn") {
         const todo = item.parentElement;
         todo.classList.toggle("completedItem")
+        completedItems.push(todo)
     }
 }
 
+function filterItems() {
+
+
+
+}
+
 let todoItems = [] 
+let completedItems = []
 window.addEventListener("load", todoApp)
